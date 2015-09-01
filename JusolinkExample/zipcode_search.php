@@ -29,6 +29,14 @@
 
 	<body class="body_width">
 			<div id="content_result">
+				<? 
+					if(isset($code)){			
+				?>
+					<li>Response.code : <? echo $code ?> </li>
+					<li>Response.message : <? echo $message ?></li>
+				<?	
+					}	
+				?>
 				<p class="heading1">주소검색 Example</p>
 				<br/>
 				<fieldset class="fieldset5 left">
@@ -196,7 +204,6 @@
 					</fieldset>
 				<br />
 			</div>
-	
 		<script type="text/javascript">
 			window.onload=function(){
 				// 기본검색 화면
