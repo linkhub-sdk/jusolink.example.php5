@@ -6,7 +6,7 @@
 	</head>
 <?php
 	include 'common.php';
-	
+
 	// 잔여포인트 조회
 
 	try {
@@ -24,18 +24,18 @@
 			<fieldset class="fieldset1">
 				<legend>잔여포인트 확인 테스트</legend>
 				<ul>
-					<?
-						if(isset($remainPoint)) { 
+					<?php
+						if(isset($remainPoint)) {
 					?>
-							<li>잔여포인트 : <? echo $remainPoint ?></li>
-					<?
+							<li>잔여포인트 : <?php echo $remainPoint ?></li>
+					<?php
 						} else {
 					?>
-							<li>Response.code : <? echo $code ?> </li>
-							<li>Response.message : <? echo $message ?></li>
-					<?
+							<li>Response.code : <?php echo $code ?> </li>
+							<li>Response.message : <?php echo $message ?></li>
+					<?php
 						}
-					?>		
+					?>
 				</ul>
 			</fieldset>
 		 </div>

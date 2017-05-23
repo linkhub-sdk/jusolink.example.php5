@@ -5,18 +5,18 @@
 		<title>주소검색 SDK PHP 5.X Example.</title>
 	</head>
 
-	<?
+	<?php
 		// 검색어가 존재하는 경우 주소 API 호출
 		if (isset($_GET['IndexWord']) && $_GET['IndexWord'] != ''){
 
 			include 'common.php';
-			
+
 			$IndexWord = $_GET['IndexWord'];
 			$PageNum = ( isset($_GET['PageNum']) ? $_GET['PageNum'] : 1);		 // 페이지 번호
 			$PerPage = ( isset($_GET['PerPage']) ? $_GET['PerPage'] : 20);		 // 페이지 목록 갯수, 기본값 20, 최대 50
 			$noSuggest = false;		// 수정제시어 끄기
 			$noDiff = false;		// 차등검색 끄기
-			
+
 			try {
 				$result = $jusolinkService->search($IndexWord, $PageNum, $PerPage, $noSuggest, $noDiff);
 			}
@@ -29,39 +29,39 @@
 
 	<body class="body_width">
 			<div id="content_result">
-				<? 
-					if(isset($code)){			
+				<?php
+					if(isset($code)){
 				?>
-					<li>Response.code : <? echo $code ?> </li>
-					<li>Response.message : <? echo $message ?></li>
-				<?	
-					}	
+					<li>Response.code : <?php echo $code ?> </li>
+					<li>Response.message : <?php echo $message ?></li>
+				<?php
+					}
 				?>
 				<p class="heading1">주소검색 Example</p>
 				<br/>
 				<fieldset class="fieldset5 left">
 					<legend>주소검색</legend>
 							<form method = "GET" id="zipcode_form" action="zipcode_search.php">
-								<input class= "txtZipcode left" type="text" id="IndexWord" name="IndexWord" value="<?= (isset($result->searches) ? $result->searches : "")?>" tabindex=1 placeholder="예) 영동대로 517, 아셈타워, 삼성동 159"/>
+								<input class= "txtZipcode left" type="text" id="IndexWord" name="IndexWord" value="<?php (isset($result->searches) ? $result->searches : "")?>" tabindex=1 placeholder="예) 영동대로 517, 아셈타워, 삼성동 159"/>
 								<input type="hidden" type="text" id="PageNum" name="PageNum"/>
 								<input type="hidden" type="text" id="PerPage" name="PerPage"/>
 								<p class="find_btn find_btn01 hand" onclick="search();" tabindex=2> 검색 </P>
 							</form>
-							<?
+							<?php
 								if(isset($result)){
 							?>
 
-								<div class="result_box">				
-									<p class="example left">검색결과 : <?= $result->numFound?> 개</p>
-								<? 
+								<div class="result_box">
+									<p class="example left">검색결과 : <?php echo $result->numFound?> 개</p>
+								<?php
 									if(isset($result->suggest)){
 								?>
-									<p class="example left">검색어 제안 : <span class="suggest hand" onclick='suggest_search("<?= $result->suggest;?>")'><?= $result->suggest ?> 검색결과 보기</span></p>
-								<?
+									<p class="example left">검색어 제안 : <span class="suggest hand" onclick='suggest_search("<?php echo $result->suggest;?>")'><?php echo $result->suggest ?> 검색결과 보기</span></p>
+								<?php
 									}
 								?>
 								</div>
-							<?
+							<?php
 								}
 							?>
 				</fieldset>
@@ -69,42 +69,42 @@
 			 </div>
 
 			 <div id="content_juso">
-				<?
+				<?php
 					// 검색된 주소정보가 존재하는경우
 					if(isset($result->juso)){
 						for($i=0; $i<Count($result->juso); $i++){
 				?>
 
 					<fieldset class="fieldset6 left">
-						<p> <span class="zipcode" id="zipcode"><?=$result->juso[$i]->zipcode?></span> <span>(<?= $result->juso[$i]->sectionNum?>)</span></p>
+						<p> <span class="zipcode" id="zipcode"><?php echo$result->juso[$i]->zipcode?></span> <span>(<?php echo $result->juso[$i]->sectionNum?>)</span></p>
 
-						<p class="hand" onclick='detail("roadAddr", "<?=$result->juso[$i]->zipcode?>", "<?= $result->juso[$i]->sectionNum?>", "<?= $result->juso[$i]->roadAddr1?>", "<?= $result->juso[$i]->roadAddr2?>", "<?= $result->juso[$i]->jibunAddr?>")'>
-							<img class="imgAlign" src="../image/juso_icon_01.gif"/> <?= $result->juso[$i]->roadAddr1?> <?= $result->juso[$i]->roadAddr2?>
+						<p class="hand" onclick='detail("roadAddr", "<?php echo$result->juso[$i]->zipcode?>", "<?php echo $result->juso[$i]->sectionNum?>", "<?php echo $result->juso[$i]->roadAddr1?>", "<?php echo $result->juso[$i]->roadAddr2?>", "<?php echo $result->juso[$i]->jibunAddr?>")'>
+							<img class="imgAlign" src="../image/juso_icon_01.gif"/> <?php echo $result->juso[$i]->roadAddr1?> <?php echo $result->juso[$i]->roadAddr2?>
 						</p>
-						<p class="hand" onclick='detail("jibunAddr", "<?= $result->juso[$i]->zipcode?>", "<?= $result->juso[$i]->sectionNum?>", "<?= $result->juso[$i]->roadAddr1?>", "<?= $result->juso[$i]->roadAddr2?>", "<?= $result->juso[$i]->jibunAddr ?>")'>
-							<img class="imgAlign" src="../image/juso_icon_02.gif"/> <?= $result->juso[$i]->jibunAddr?>
+						<p class="hand" onclick='detail("jibunAddr", "<?php echo $result->juso[$i]->zipcode?>", "<?php echo $result->juso[$i]->sectionNum?>", "<?php echo $result->juso[$i]->roadAddr1?>", "<?php echo $result->juso[$i]->roadAddr2?>", "<?php echo $result->juso[$i]->jibunAddr ?>")'>
+							<img class="imgAlign" src="../image/juso_icon_02.gif"/> <?php echo $result->juso[$i]->jibunAddr?>
 						</p>
 
-						<?
+						<?php
 							if(Count($result->juso[$i]->relatedJibun)){
 						?>
-								<p> <img class="imgAlign" src="../image/juso_icon_03.gif"/> <?= implode(', ',$result->juso[$i]->relatedJibun)?></p>
-						<?
+								<p> <img class="imgAlign" src="../image/juso_icon_03.gif"/> <?php echo implode(', ',$result->juso[$i]->relatedJibun)?></p>
+						<?php
 							}
-						?>			
+						?>
 					</fieldset>
-					<?
+					<?php
 						}
-					?>		
+					?>
 					<div class="page_num">
 						<img class="hand" onclick='prevPage();' alt="이전" src="../image/juso_btn_prev.png">
-							<span class="current" id="current_page"><?= $result->page?></span>
+							<span class="current" id="current_page"><?php echo $result->page?></span>
 							&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
-							<span class="end" id="end_page"><?= $result->totalPage?></span>
+							<span class="end" id="end_page"><?php echo $result->totalPage?></span>
 						<img class="hand" onclick='nextPage();' alt="다음" src="../image/juso_btn_next.png">
 					</div>
 
-				<?
+				<?php
 					// 검색된 주소정보가 없는경우
 					} else {
 				?>
@@ -112,7 +112,7 @@
 						<p><strong>검색결과가 없습니다.</strong></p>
 						<p>잘못된 철자가 없는지, 정확한 주소인지 검색어를 다시 한번 확인해 주세요. </p>
 					</fieldset>
-				<?
+				<?php
 					}
 				?>
 
@@ -126,8 +126,8 @@
 								<li>아래의 주소를 확인하시고 선택하신 후 확인버튼을 누르세요. </li>
 								<li>정확한 우편물 발송을 위해 표준화 도로명주소 사용을 권장합니다.</li>
 							</ul>
-						
-						
+
+
 							<div class="road_type">
 								<input class="hand" id="road" name="Type" type="radio" tabindex=1>
 								<label class="hand" for="road">표준화 도로명주소</label>
@@ -200,7 +200,7 @@
 								<a href="zipcode_search.php"><p class="btn_reset hand" tabindex=6>다시검색</p></a>
 							</div>
 						</div>
-					
+
 					</fieldset>
 				<br />
 			</div>
@@ -209,7 +209,7 @@
 				// 기본검색 화면
 				document.getElementById('content_juso').style.display="none";
 				document.getElementById('content_detail').style.display="none";
-				
+
 				//주소정보 리스트
 				if(document.getElementById('zipcode') != null){
 					document.getElementById('content_juso').style.display='';
@@ -217,12 +217,12 @@
 
 				document.getElementById('IndexWord').focus();
 			};
-			
+
 			function processForm(e) {
 				if (e.preventDefault) e.preventDefault();
 				return false;
 			}
-			
+
 			// 주소검색
 			function search(){
 				var index = document.getElementById('IndexWord').value;
@@ -246,20 +246,20 @@
 			function nextPage(){
 				currentPage = document.getElementById('current_page').innerText;
 				totalPage = document.getElementById('end_page').innerText;
-				
+
 				if (currentPage < totalPage)
 				{
-					document.getElementById('PageNum').value = currentPage*1 + 1;				
+					document.getElementById('PageNum').value = currentPage*1 + 1;
 					document.getElementById('zipcode_form').submit();
 				}
 			}
-			
+
 			// 이전페이지
 			function prevPage(){
 				currentPage = document.getElementById('current_page').innerText;
 
 				if(currentPage  > 1){
-					document.getElementById('PageNum').value = currentPage*1 -1;			
+					document.getElementById('PageNum').value = currentPage*1 -1;
 					document.getElementById('zipcode_form').submit();
 				}
 			}
@@ -269,7 +269,7 @@
 				document.getElementById('content_result').style.display="none";
 				document.getElementById('content_juso').style.display="none";
 				document.getElementById('content_detail').style.display='';
-				
+
 				if(type == "roadAddr"){
 					document.getElementById('road').checked = true;
 				}else {
@@ -292,14 +292,14 @@
 				document.getElementById('jibunAddr').value = jibunAddr;
 				document.getElementById('jibunAddr').innerHTML = jibunAddr;
 			}
-			
-			// 부모 페이지로 우편번호, 주소 전달	
+
+			// 부모 페이지로 우편번호, 주소 전달
 			function inputAddr(){
-				
+
 				// 도로명주소 선택시.
 				if(document.getElementById('road').checked){
 
-					zipcode = document.getElementById('road_zipcode').value;
+					zipcode = document.getElementById('road_sectionNum').value;
 					roadAddr1 = document.getElementById('roadAddr1').value;
 					roadAddr2 = document.getElementById('roadAddr2').value;
 					roadAddrDetail = document.getElementById('road_detail').value;
@@ -312,7 +312,7 @@
 
 				// 지번주소 선택시.
 				} else {
-					zipcode = document.getElementById('jibun_zipcode').value;
+					zipcode = document.getElementById('jibun_sectionNum').value;
 					addrResult = document.getElementById('jibunAddr').value;
 					detail = document.getElementById('jibun_detail').value;
 

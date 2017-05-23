@@ -12,7 +12,7 @@
 			<fieldset class="fieldset1">
 				<legend>주소찾기</legend>
 					<div class ="fieldset4">
-						<input class= "txtZipcode left" type="text" placeholder="우편번호" id="txtZipcode" name="txtZipcode"/>
+						<input class= "txtZipcode left" type="text" placeholder="새우편번호" id="txtZipcode" name="txtZipcode"/>
 						<a href=javascript:openNewWindow("zipcode_search.php")><p class="find_btn find_btn01 hand">주소찾기</p></a>
 						<input class= "txtAddr" type="text" placeholder="주소" id="txtAddr" name="txtAddr">
 					</div>
@@ -30,10 +30,10 @@
 
 				open_x = (screen_width - window_width)/2;
 				open_y = (screen_height - window_height)/2;
-				
+
 				open(window,"NewWindow","left="+open_x+", top="+open_y+", toolbar=no, location=no, status=no, resizable=yes, width="+window_width+", height="+window_height);
 			}
-			
+
 			function putAddr(zipcode, addrTxt){
 				document.getElementById('txtZipcode').value = zipcode;
 				document.getElementById('txtAddr').value = addrTxt;
